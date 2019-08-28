@@ -345,47 +345,12 @@ namespace Leptonica
 
                 for (int x = 0; x < width; x++)
                 {
-                    //var pixVal = PixColor.FromRgba(pixLine[x]);
                     var value = pixLine[x];
-                    //byte* pixelPtr = imgLine + (x << 2);
-                    //pixelPtr[0] = pixVal.Blue;
-                    //pixelPtr[1] = pixVal.Green;
-                    //pixelPtr[2] = pixVal.Red;
-                    //pixelPtr[3] = (byte)(alphaMask | pixVal.Alpha); // Allow user to include alpha or not
                     byte* pixelPtr = imgLine + (x << 2);
-                    // First Way
                     pixelPtr[0] = (byte)((value >> 8) & 0xFF); //B
                     pixelPtr[1] = (byte)((value >> 16) & 0xFF); //G
                     pixelPtr[2] = (byte)((value >> 24) & 0xFF); //R
                     pixelPtr[3] = (byte)((byte)(value & 0xFF) | alphaMask); //A
-
-                    //// Second Way
-                    //var col = ToArgb(value);
-                    //pixelPtr[0] = col.B;
-                    //pixelPtr[1] = col.G;
-                    //pixelPtr[2] = col.R;
-                    //pixelPtr[3] = (byte)(col.A | alphaMask);
-
-                    //// Third Way
-                    //var a = (value & 0xFF000000) >> 24;
-                    //var r = (value & 0x00FF0000) >> 16;
-                    //var g = (value & 0x0000FF00) >> 8;
-                    //var b = (value & 0x000000FF);
-
-                    //pixelPtr[0] = (byte)b;
-                    //pixelPtr[1] = (byte)g;
-                    //pixelPtr[2] = (byte)r;
-                    //pixelPtr[3] = (byte)((byte)a | alphaMask);
-
-                    //// First Way but clearer
-                    //var a = (byte)((byte)(value & 0xFF) | alphaMask); //A
-                    //var b = (byte)((value >> 8) & 0xFF); //B
-                    //var g = (byte)((value >> 16) & 0xFF); //G
-                    //var r = (byte)((value >> 24) & 0xFF); //R
-                    //pixelPtr[0] = b;
-                    //pixelPtr[1] = g;
-                    //pixelPtr[2] = r;
-                    //pixelPtr[3] = a;
                 }
             }
         }
@@ -535,12 +500,6 @@ namespace Leptonica
 
         private static Color ToArgb(uint value)
         {
-            //return new PixColor(
-            //   (byte)((value >> 24) & 0xFF),
-            //   (byte)((value >> 16) & 0xFF),
-            //   (byte)((value >> 8) & 0xFF),
-            //   (byte)(value & 0xFF));
-
             return Color.FromArgb(
                (byte)(value & 0xFF), //A
                (byte)((value >> 24) & 0xFF), //R
